@@ -1,0 +1,20 @@
+.add-btn {
+  background-color: #eb7700;
+  border: 2px solid #eb7700;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: white;
+}
+.add-btn:hover {
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+}
+.item-input {
+  border: 2px solid black;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+.item-input:hover {
+  border: 2px solid #eb7700;
+}
