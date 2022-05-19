@@ -1,9 +1,16 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 const Home = () => {
   return (
     <div>
-      <h2>This is Home</h2>
+      <Container>
+        <img
+          className="w-100 h-100"
+          src="https://i.ibb.co/PFRzKhP/todoimg.webp"
+          alt=""
+        />
+      </Container>
     </div>
   );
 };

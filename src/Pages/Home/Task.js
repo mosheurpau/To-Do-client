@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import "./Task.css";
 
@@ -11,7 +12,7 @@ const Task = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure?");
     if (proceed) {
-      const url = `http://localhost:5000/task/${id}`;
+      const url = `https://still-taiga-75299.herokuapp.com/task/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -27,16 +28,32 @@ const Task = () => {
   const [user] = useAuthState(auth);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/task/${user.email}`)
+    fetch(`https://still-taiga-75299.herokuapp.com/task/${user.email}`)
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [user]);
-  console.log(tasks);
 
-  const navigate = useNavigate();
-  const navigateToItemCompleted = (_id) => {
-    navigate(`/tasks/${_id}`);
+  const handleCompleted = (_id) => {
+    alert("Task Completed");
+    // const newTask = { ...tasks };
+    // newTask.description = "hello";
+    // console.log(newTask);
+    // setTasks(newTask);
+    // const url = `https://still-taiga-75299.herokuapp.com/task/${_id}`;
+    // fetch(url, {
+    //   method: "PUT",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(tasks),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log("success", data);
+    //     alert("Delivered successfully!!!");
+    //   });
   };
+
   return (
     <Container>
       <div className="w-100 mx-auto mb-5">
@@ -60,7 +77,7 @@ const Task = () => {
                 <td>
                   <button
                     className="update-btn"
-                    onClick={() => navigateToItemCompleted(task._id)}
+                    onClick={() => handleCompleted(task._id)}
                   >
                     Completed
                   </button>

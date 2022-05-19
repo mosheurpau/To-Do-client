@@ -1,0 +1,32 @@
+.footer-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-menu {
+  color: black;
+  font-size: 18px;
+  padding-right: 25px;
+}
+
+.footer-icon {
+  font-size: 30px;
+  padding: 10px;
+  margin-top: 30px;
+  color: black;
+  cursor: pointer;
+}
+.footer-icon:hover {
+  color: #eb7700;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-menu {
+    display: block;
+    padding: 10px;
+  }
+  .footer-title {
+    display: block;
+  }
+}

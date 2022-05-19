@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./AddTask.css";
 
-// todo_admin
-
 const AddTask = () => {
   const [user] = useAuthState(auth);
   console.log(user.email);
@@ -17,7 +15,7 @@ const AddTask = () => {
 
   const onSubmit = (data) => {
     data.email = user.email;
-    const url = `http://localhost:5000/task`;
+    const url = `https://still-taiga-75299.herokuapp.com/task`;
     fetch(url, {
       method: "POST",
       headers: {
@@ -29,8 +27,7 @@ const AddTask = () => {
       .then((result) => {
         console.log(result);
       });
-
-    navigate("/");
+    navigate("/task");
   };
   return (
     <Container>

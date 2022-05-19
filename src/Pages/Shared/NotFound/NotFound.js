@@ -1,10 +1,15 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 const NotFound = () => {
   return (
-    <div>
-      <h2>This is NotFound</h2>
-    </div>
+    <Container>
+      <img
+        className="w-100 h-100"
+        src="https://i.ibb.co/Kycch85/NotFound.jpg"
+        alt=""
+      />
+    </Container>
   );
 };
 
