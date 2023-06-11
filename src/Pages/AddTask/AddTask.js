@@ -15,7 +15,7 @@ const AddTask = () => {
 
   const onSubmit = (data) => {
     data.email = user.email;
-    const url = `https://still-taiga-75299.herokuapp.com/task`;
+    const url = `https://mosheurpau-to-do-server.onrender.com/task`;
     fetch(url, {
       method: "POST",
       headers: {

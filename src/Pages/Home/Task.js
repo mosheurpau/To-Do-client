@@ -9,10 +9,12 @@ import auth from "../../firebase.init";
 import "./Task.css";
 
 const Task = () => {
+  const [user] = useAuthState(auth);
+  const [tasks, setTasks] = useState([]);
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure?");
     if (proceed) {
-      const url = `https://still-taiga-75299.herokuapp.com/task/${id}`;
+      const url = `https://mosheurpau-to-do-server.onrender.com/task/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -25,32 +27,32 @@ const Task = () => {
     }
   };
 
-  const [user] = useAuthState(auth);
-  const [tasks, setTasks] = useState([]);
   useEffect(() => {
-    fetch(`https://still-taiga-75299.herokuapp.com/task/${user.email}`)
+    fetch(`https://mosheurpau-to-do-server.onrender.com/task/${user.email}`)
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [user]);
 
-  const handleCompleted = (_id) => {
-    alert("Task Completed");
-    // const newTask = { ...tasks };
-    // newTask.description = "hello";
-    // console.log(newTask);
-    // setTasks(newTask);
-    // const url = `https://still-taiga-75299.herokuapp.com/task/${_id}`;
+  const handleCompleted = (id) => {
+    const proceed = window.confirm("Are you sure?");
+    const newItem = { ...tasks };
+    newItem.description = "Done";
+    console.log(newItem);
+    // const remaining = tasks.filter((task) => task._id !== id);
+    setTasks(newItem);
+
+    // const url = `https://furniture-warehouse-shop-server-side.onrender.com/task/${user.email}/${id}`;
     // fetch(url, {
     //   method: "PUT",
     //   headers: {
     //     "content-type": "application/json",
     //   },
-    //   body: JSON.stringify(tasks),
+    //   body: JSON.stringify(newItem),
     // })
     //   .then((res) => res.json())
     //   .then((data) => {
     //     console.log("success", data);
-    //     alert("Delivered successfully!!!");
+    //     toast("Completed successfully!!!");
     //   });
   };
 
