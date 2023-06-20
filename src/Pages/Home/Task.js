@@ -3,10 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Navigate, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import "./Task.css";
+import { toast } from "react-toastify";
 
 const Task = () => {
   const [user] = useAuthState(auth);
@@ -22,6 +21,7 @@ const Task = () => {
         .then((data) => {
           console.log(data);
           const remaining = tasks.filter((task) => task._id !== id);
+          toast("Task delete Successfully!!!");
           setTasks(remaining);
         });
     }
@@ -33,29 +33,6 @@ const Task = () => {
       .then((data) => setTasks(data));
   }, [user]);
 
-  const handleCompleted = (id) => {
-    const proceed = window.confirm("Are you sure?");
-    const newItem = { ...tasks };
-    newItem.description = "Done";
-    console.log(newItem);
-    // const remaining = tasks.filter((task) => task._id !== id);
-    setTasks(newItem);
-
-    // const url = `https://furniture-warehouse-shop-server-side.onrender.com/task/${user.email}/${id}`;
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(newItem),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log("success", data);
-    //     toast("Completed successfully!!!");
-    //   });
-  };
-
   return (
     <Container>
       <div className="w-100 mx-auto mb-5">
@@ -66,24 +43,15 @@ const Task = () => {
               <th>#ID</th>
               <th>Task Name</th>
               <th>Task Description</th>
-              <th>Task Completed</th>
               <th>Task Delete</th>
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (
+            {tasks.map((task, index) => (
               <tr key={task._id}>
-                <td>...{task._id.slice(20, 30)}</td>
+                <td>{index + 1}</td>
                 <td>{task.name}</td>
                 <td> {task.description}</td>
-                <td>
-                  <button
-                    className="update-btn"
-                    onClick={() => handleCompleted(task._id)}
-                  >
-                    Completed
-                  </button>
-                </td>
                 <td>
                   <button
                     className="delete-btn"
