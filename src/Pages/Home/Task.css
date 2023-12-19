@@ -1,11 +1,11 @@
-.update-btn {
+.delete-btn {
   padding: 5px 15px;
-  background-color: green !important;
+  background-color: green;
   color: white;
   border: 2px solid white;
-  border-radius: 5px;
+  border-radius: 35px;
 }
-.update-btn:hover {
-  background-color: #eb7700;
+.delete-btn:hover {
+  background-color: #eb1b00;
   color: white;
 }

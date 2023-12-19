@@ -6,10 +6,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import "./Task.css";
 import { toast } from "react-toastify";
+import Loading from "../Shared/Loading/Loading";
 
 const Task = () => {
   const [user] = useAuthState(auth);
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure?");
     if (proceed) {
@@ -30,8 +32,15 @@ const Task = () => {
   useEffect(() => {
     fetch(`https://mosheurpau-to-do-server.onrender.com/task/${user.email}`)
       .then((res) => res.json())
-      .then((data) => setTasks(data));
+      .then((data) => {
+        setTasks(data);
+        setIsLoading(false);
+      });
   }, [user]);
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <Container>

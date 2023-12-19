@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./AddTask.css";
+import Loading from "../Shared/Loading/Loading";
 
 const AddTask = () => {
   const [user] = useAuthState(auth);
@@ -12,10 +13,11 @@ const AddTask = () => {
   const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = (data) => {
     data.email = user.email;
     const url = `https://mosheurpau-to-do-server.onrender.com/task`;
+    setIsLoading(true);
     fetch(url, {
       method: "POST",
       headers: {
@@ -25,10 +27,13 @@ const AddTask = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        setIsLoading(false);
+        navigate("/task");
       });
-    navigate("/task");
   };
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <Container>
       <Row className="justify-content-md-center my-3">
